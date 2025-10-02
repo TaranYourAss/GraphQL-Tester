@@ -1,0 +1,28 @@
+POST /gql HTTP/2
+Host: app.WEBAPP.com
+Cookie: session=;
+Content-Length: 93
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Accept: */*
+Content-Type: application/json
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+
+{"query":"query overload {__typename @include(if:true) @include(if:true) @include(if:true)}"}
+
+
+HTTP/2 400 Bad Request
+Date: Thu, 02 Oct 2025 18:41:13 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 395
+X-Dns-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+X-Xss-Protection: 1; mode=block
+Access-Control-Allow-Origin: *
+X-Gql-Version: 1
+Server: cloudflare
+
+{"errors":[{"message":"The directive \"@include\" can only be used once at this location.","locations":[{"line":2,"column":14},{"line":2,"column":33}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}},{"message":"The directive \"@include\" can only be used once at this location.","locations":[{"line":2,"column":14},{"line":2,"column":52}],"extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}}]}
