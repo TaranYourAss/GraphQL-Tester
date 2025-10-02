@@ -6,7 +6,7 @@ Directive overloading occurs when an attacker leverages a large number of direct
 
 Queries designed to overload the GraphQL engine with excessive directives may lead to a denial-of-service of the entire GraphQL engine, as well as resource exhaustion where a significant amount of computational resources are used to parse and validate the non-existent directives, which can result in memory exhaustion or CPU spikes.  
   
-If a GraphQL engine does not either:  
+If the GraphQL endpoint does not either:  
 - limit directives
 - filter on requests with excessive body-size
 - utilize execution timeouts  
@@ -28,7 +28,7 @@ pip install cloudscraper, plotext
 
 ## Usage
 ```
-python3 directive_overload.py --url https://{WEBAPP}.com/gql/v2 --cookies session=abc123 --plot-data True
+python3 directive_overload.py --url https://{WEBAPP}.com/gql/v2 --cookies 'session=abc123; extra=123abc' --plot-data True
 ```
 ```
 Overload Count: 6 - Response Time (ms): 401.748
@@ -51,5 +51,5 @@ Overload Count: 98304 - Response Time (ms): 14294.663
 
 
 
-
-> Usage for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.  
+> [!CAUTION]
+> Attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.  
