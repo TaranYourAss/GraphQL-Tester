@@ -1,7 +1,20 @@
-# gqlmap
-This script is used to test if a GraphQL engine is vulnerable to Directive Overloads by exponentially adding directives to GraphQL queries, and then plotting the data on a simple bar chart.  
+
+<img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/9e780001-edeb-448f-8e83-813270309f59" />  
+
+### gqlmap  
+### [![Python 3.x](https://img.shields.io/badge/python-3.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
+
+<br clear="right"/>  
+
+gqlmap is is an open source penetration testing tool that automates the process of detecting and exploiting GraphQL vulnerabilities.  
+
   
-Directive overloading occurs when an attacker leverages a large number of directives in a query to overwhelm the server's processing capabilities. Directives are used to modify the behaviour of queries.  
+Currently only supports detecting Directive Overloads  
+
+### Directive Overloading
+
+Directive overloading occurs when an attacker leverages a large number of directives in a query to overwhelm the server's processing capabilities. gqlmap detects if an engine is vulnerable to Directive Overloads by exponentially adding directives to GraphQL queries, and then plotting the data on a simple bar chart.  
+
 
 Queries designed to overload the GraphQL engine with excessive directives may lead to a denial-of-service of the entire GraphQL engine, as well as resource exhaustion where a significant amount of computational resources are used to parse and validate the non-existent directives, which can result in memory exhaustion or CPU spikes.  
   
