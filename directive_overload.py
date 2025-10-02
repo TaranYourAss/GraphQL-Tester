@@ -6,6 +6,25 @@ import argparse
 import sys
 import threading
 
+#TODO: 
+# - automatically try GET & POST
+# - add way to cancel scan while it's running
+# - add more format options for queries - not all GraphQL will be JSON in the body
+# - add date/time to output like sqlmap
+# - add logo, legal disclaimer, version
+# - add error to let user know if universal queries & introspection aren't enabled
+# - test against graphql-armor
+# - FEATURES
+#   - proxy
+#   - fingerprint GraphQL engine
+#   - attempt through websocket if introspection/universal queries not enabled
+#   - attempt CSRF attacks
+#   - attempt cross-site websocket hijacking
+#   - rate limit bypassing using Aliases 
+#   - Alias Overloading
+#   - Array-based Query Batching
+#   - Field Duplication Vulnerability
+#   - Incremental delivery abuse
 class LoadingCursor:
     def __init__(self):
         self.loading = False
