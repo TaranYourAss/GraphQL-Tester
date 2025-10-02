@@ -1,5 +1,4 @@
-# GraphQL-Tester
-# Directive_Overload.py
+# gqlmap
 This script is used to test if a web application is vulnerable to Directive Overloads by exponentially adding directives to GraphQL queries, and then plotting the data on a simple bar chart.  
   
 Directive overloading occurs when an attacker leverages a large number of directives in a query to overwhelm the server's processing capabilities. Directives are used to modify the behaviour of queries.  
