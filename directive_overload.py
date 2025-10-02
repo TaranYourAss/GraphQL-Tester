@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import requests
 import cloudscraper
 import json
