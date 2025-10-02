@@ -8,9 +8,13 @@
 
 gqlmap is is an open source penetration testing tool that automates the process of detecting and exploiting GraphQL vulnerabilities.  
 
-  
-Currently only supports detecting Directive Overloads  
 
+<details open>
+<summary>Detections</summary>
+&nbsp;&nbsp;&nbsp;&nbsp;Directive Overloading  
+</details>
+
+<br/><br/><br/>
 ### Directive Overloading
 
 Directive overloading occurs when an attacker leverages a large number of directives in a query to overwhelm the server's processing capabilities. gqlmap detects if an engine is vulnerable to Directive Overloads by exponentially adding directives to GraphQL queries, and then plotting the data on a simple bar chart.  
