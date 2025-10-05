@@ -17,7 +17,7 @@ try:
 
     from lib.core.init import logger
     from lib.core.settings import BANNER
-    from lib.core.common import print_colored_banner
+    from lib.core.common import print_banner
     
       
 
@@ -211,7 +211,7 @@ def main():
     try:
         args = cmdargs.get_cmd_arguments()
         print(type(args))
-        print_colored_banner(BANNER)
+        print_banner(BANNER)
 
     except Exception as errMsg:
         excMsg = traceback.format_exc()
