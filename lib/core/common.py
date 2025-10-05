@@ -22,5 +22,6 @@ def print_banner(banner:str, coloured_output:bool=True) -> None:
                 else:
                     colored_line += char
             print(colored_line)
+        print('\n')
     else:
         print(banner)

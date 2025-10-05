@@ -3,8 +3,6 @@
 class COLOURS:
     RESET = '\033[0m'
     BOLD = '\033[1m'
-    
-    # Regular colors
     BLACK = '\033[30m'
     RED = '\033[31m'
     GREEN = '\033[32m'
@@ -13,8 +11,6 @@ class COLOURS:
     MAGENTA = '\033[35m'
     CYAN = '\033[36m'
     WHITE = '\033[37m'
-    
-    # Bright colors
     BRIGHT_BLACK = '\033[90m'
     BRIGHT_RED = '\033[91m'
     BRIGHT_GREEN = '\033[92m'
@@ -29,7 +25,6 @@ VERSION = "0.1.10.5"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
 BANNER = f"""
-
                     ███                    
                   ███████                  
                  ███▓|▓███                 
@@ -55,15 +50,16 @@ BANNER = f"""
                  ███▓|▓███                 
                   ███████                  
                     ███              gqlmap
+
 """
 #colours associations for the banner characters
 BANNER_CHAR_COLOURS = {
     '║': COLOURS.BRIGHT_RED,
     '|': COLOURS.BRIGHT_WHITE,
-    '▒': COLOURS.BRIGHT_MAGENTA,
+    '▒': COLOURS.MAGENTA,
     '░': COLOURS.BRIGHT_WHITE,   
     '▓': COLOURS.BRIGHT_BLUE,    
-    '█': COLOURS.BRIGHT_BLACK   
+    '█': COLOURS.BRIGHT_BLACK  
 }
 
 
