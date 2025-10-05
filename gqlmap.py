@@ -18,6 +18,7 @@ try:
     from lib.core.init import logger
     from lib.core.settings import BANNER
     from lib.core.common import print_banner
+    from lib.core.common import stdoutWrite
     
       
 
@@ -210,9 +211,9 @@ def main():
     """
     try:
         args = cmdargs.get_cmd_arguments()
-        print(type(args))
-        print_banner(BANNER)
 
+        print_banner(BANNER)
+        stdoutWrite("[*] starting @ %s\n\n" % time.strftime("%X /%Y-%m-%d/"))
     except Exception as errMsg:
         excMsg = traceback.format_exc()
         logger.critical("%s\n%s" % (errMsg, excMsg))

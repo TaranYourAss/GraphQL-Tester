@@ -25,7 +25,7 @@ class COLOURS:
     BRIGHT_WHITE = '\033[97m'
 
 # sqlmap version (<major>.<minor>.<month>.<monthly commit>)
-VERSION = "0.1.10.2"
+VERSION = "0.1.10.5"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
 BANNER = f"""
@@ -54,7 +54,7 @@ BANNER = f"""
                 ███████████                
                  ███▓|▓███                 
                   ███████                  
-                    ███    gqlmap v{VERSION}
+                    ███              gqlmap
 """
 #colours associations for the banner characters
 BANNER_CHAR_COLOURS = {
