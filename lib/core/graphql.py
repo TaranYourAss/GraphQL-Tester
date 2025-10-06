@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from lib.core.init import conf
-from lib.core.log import logger
+from lib.core.init import logger
 from lib.utils.http import request
 
 class GraphQL:
