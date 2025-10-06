@@ -14,12 +14,14 @@ try:
     import traceback
 
     import lib.parse.cmdargs as cmdargs
-
+    from lib.core.init import conf
     from lib.core.init import logger
+    from lib.core.options import initOptions
     from lib.core.settings import BANNER
     from lib.core.common import print_banner
     from lib.core.common import stdoutWrite
     from lib.core.common import COLOURS
+
       
 
 except KeyboardInterrupt:
@@ -211,6 +213,7 @@ def main():
     """
     try:
         args = cmdargs.get_cmd_arguments()
+        initOptions(args)
 
         print_banner(BANNER)
 

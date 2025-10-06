@@ -3,6 +3,7 @@ import sys
 
 from lib.core.settings import BANNER_CHAR_COLOURS
 from lib.core.settings import COLOURS
+from lib.core.init import conf
 
 def stdoutWrite(text: str) -> None:
     """
@@ -10,8 +11,8 @@ def stdoutWrite(text: str) -> None:
     """
     sys.stdout.write(text)
 
-def print_banner(banner:str, coloured_output:bool=True) -> None:
-    if coloured_output:
+def print_banner(banner:str) -> None:
+    if conf.colourless == False:
         colored_line = ""
         for char in banner:
             if char == '\n':

@@ -4,8 +4,9 @@ import logging
 import sys
 import re
 
-from lib.core.common import COLOURS
+from lib.core.settings import COLOURS
 from lib.core.settings import LOGGING_LEVEL_COLOURS as level_colours
+
 LOGGER = logging.getLogger("gqlmapLog")
 
 class ColouredFormatter(logging.Formatter):
@@ -31,6 +32,12 @@ class ColouredFormatter(logging.Formatter):
         
         return result
 
+class ColourlessFormatter(logging.Formatter):
+    def __init__(self):
+        super().__init__("\r[%(asctime)s] [%(levelname)s] %(message)s", "%H:%M:%S")
+    
+    def format(self, record):
+        return super().format(record)
 
 #LOGGER_HANDLER = logging.StreamHandler(sys.stdout)
 
