@@ -1,12 +1,15 @@
 
-<img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/9e780001-edeb-448f-8e83-813270309f59" />  
+<!-- <img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/9e780001-edeb-448f-8e83-813270309f59" />  -->
+<img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/ad4d3cc8-6580-4a11-93b5-b426db15266a" />
+
 
 ### gqlmap  
 ### [![Python 3.x](https://img.shields.io/badge/python-3.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
 
 <br clear="right"/>  
-
-gqlmap is is an open source penetration testing tool that automates the process of detecting and exploiting GraphQL vulnerabilities.  
+<br clear="left"/>  
+  
+gqlmap is is an open source penetration testing tool that maps GraphQL engines and automates the process of detecting and exploiting GraphQL vulnerabilities.  
 
 
 <details open>
