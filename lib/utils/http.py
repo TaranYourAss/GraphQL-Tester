@@ -2,7 +2,7 @@
 import cloudscraper
 
 from lib.core.init import conf
-from lib.core.log import logger
+from lib.core.init import logger
 
 def request(url:str, method:str, data=None, json_data=None, headers=None, timeout=10) -> dict:
     """
