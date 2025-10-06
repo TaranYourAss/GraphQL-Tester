@@ -12,16 +12,16 @@ def stdoutWrite(text: str) -> None:
 
 def print_banner(banner:str, coloured_output:bool=True) -> None:
     if coloured_output:
-        #issue where the first line is messed up
-        lines = banner.strip().split('\n')
-        for line in lines:
-            colored_line = ""
-            for char in line:
-                if char in BANNER_CHAR_COLOURS:
-                    colored_line += BANNER_CHAR_COLOURS[char] + char + COLOURS.RESET
-                else:
-                    colored_line += char
+        colored_line = ""
+        for char in banner:
+            if char == '\n':
+                print(colored_line)
+                colored_line = ""
+            elif char in BANNER_CHAR_COLOURS:
+                colored_line += BANNER_CHAR_COLOURS[char] + char + COLOURS.RESET
+            else:
+                colored_line += char
+        if colored_line:
             print(colored_line)
-        print('\n')
     else:
         print(banner)

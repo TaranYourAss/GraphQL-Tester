@@ -19,7 +19,7 @@ try:
     from lib.core.settings import BANNER
     from lib.core.common import print_banner
     from lib.core.common import stdoutWrite
-    
+    from lib.core.common import COLOURS
       
 
 except KeyboardInterrupt:
@@ -213,7 +213,8 @@ def main():
         args = cmdargs.get_cmd_arguments()
 
         print_banner(BANNER)
-        stdoutWrite("[*] starting @ %s\n\n" % time.strftime("%X /%Y-%m-%d/"))
+
+        stdoutWrite(f"[*] Started at %s\n\n" % time.strftime("%X %Y/%m/%d"))
     except Exception as errMsg:
         excMsg = traceback.format_exc()
         logger.critical("%s\n%s" % (errMsg, excMsg))
@@ -221,6 +222,10 @@ def main():
         
 
     logger.warning(msg="Test")
+    logger.info(msg="Test")
+    logger.debug(msg="Test")
+    logger.error(msg="Test")
+    logger.critical(msg="Test")
 if __name__ == "__main__":
     try:
         main()

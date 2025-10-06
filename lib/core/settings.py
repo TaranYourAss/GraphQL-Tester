@@ -19,12 +19,13 @@ class COLOURS:
     BRIGHT_MAGENTA = '\033[95m'
     BRIGHT_CYAN = '\033[96m'
     BRIGHT_WHITE = '\033[97m'
+    RED_BACKGROUND = '\033[41m'
 
 # sqlmap version (<major>.<minor>.<month>.<monthly commit>)
 VERSION = "0.1.10.5"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
-BANNER_OLD = f"""
+BANNER_OLD = rf"""
                    ███                   
                  ███████                 
                 ███▓║▓███                
@@ -52,7 +53,7 @@ BANNER_OLD = f"""
                    ███             gqlmap
 
 """
-BANNER = f"""
+BANNER = rf"""
                   ░████                                                                         
                 ░████████                                                                       
                 ░███░░███                                                                       
@@ -69,7 +70,7 @@ BANNER = f"""
    ░██ ░██       \ █▀▀█ /       ██ ░██     ░██   ░██░██ ▄▄░██░██     ░██ ░██ ░██░██  ░██░██     
    ░██░██         \    /         ██░██      ░██████  ░██████ ░███████░██     ░██░██  ░██░██     
   ░█████           \  /           █████                  ▀▀                                     
-░████████           \/           ████████                    -v{VERSION}-                            
+░████████           \/           ████████                    -v{VERSION}-                       
 ░███░░██████████████████████████████░░███                                                       
 ░█████████                     ░█████████                                                       
  ░░████ ░████               ░███  ░████                                                         
@@ -86,7 +87,14 @@ BANNER_CHAR_COLOURS = {
     '(': COLOURS.MAGENTA,
     ')': COLOURS.MAGENTA
 }
-
+#colour associations for the different logging levels
+LOGGING_LEVEL_COLOURS = {
+    'DEBUG': COLOURS.BRIGHT_CYAN,
+    'INFO': COLOURS.BRIGHT_GREEN,
+    'WARNING': COLOURS.YELLOW,
+    'ERROR': COLOURS.BRIGHT_RED,
+    'CRITICAL': COLOURS.RED_BACKGROUND
+  }
 
 #the maximum amount of time in ms to wait on each directive overload attack before stopping the test
 DIRECTIVE_OVERLOAD_MAX_RESPONSE_TIME = 60000
