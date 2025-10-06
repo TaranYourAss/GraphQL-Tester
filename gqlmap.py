@@ -20,7 +20,8 @@ try:
     from lib.core.settings import BANNER
     from lib.core.common import print_banner
     from lib.core.common import stdoutWrite
-    from lib.core.common import COLOURS
+    from lib.core.graphql import GraphQL
+
 
       
 
@@ -33,10 +34,18 @@ except KeyboardInterrupt:
 # - automatically try GET & POST
 # - add way to cancel scan while it's running
 # - add more format options for queries - not all GraphQL will be JSON in the body
-# - add date/time to output like sqlmap
-# - add logo, legal disclaimer, version
 # - add error to let user know if universal queries & introspection aren't enabled
+#   - if introspection enabled, check if description fields are available - potentially has sensitive info 
 # - test against graphql-armor
+# - threading?
+# - finish loading cursor
+# - add option to not verify SSL certificates
+# - add option to set timeout
+# - add option to set user-agent
+# - 
+# - add logging to file option
+# - take advantage of rate limiting bypasses
+# - 
 # - FEATURES
 #   - proxy
 #   - fingerprint GraphQL engine
@@ -48,39 +57,16 @@ except KeyboardInterrupt:
 #   - Array-based Query Batching
 #   - Field Duplication Vulnerability
 #   - Incremental delivery abuse
+#   - Persisted Query Abuse - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - Automatic query chaining based on schema - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - Authorization Bypass via Introspection - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - GraphQL Query Depth Analysis - COPILOT GENEREATED THIS - IDK WHAT THIS IS
 
-class LoadingCursor:
-    def __init__(self):
-        self.loading = False
-        self.thread = None
-    
-    def start(self):
-        self.loading = True
-        self.thread = threading.Thread(target=self._animate)
-        self.thread.daemon = True
-        self.thread.start()
-    
-    def _animate(self):
-        while self.loading:
-            for cursor in ['|          |', '|.         |', '|..        |', '|...       |', '| ...      |', '|  ...     |', '|   ...    |', '|    ...   |', '|     ...  |', '|      ... |', '|       ...|', '|        ..|', '|         .|', '|          |']:
-                if not self.loading:
-                    break
-                sys.stdout.write(f'\r{cursor}')
-                sys.stdout.flush()
-                time.sleep(0.1)
-    
-    def stop(self):
-        self.loading = False
-        if self.thread:
-            self.thread.join()
-        sys.stdout.write('\r')
-        sys.stdout.flush()
-        #sys.stdout.write('\rDone!            \n')
-
+"""
 def directive_overloading(url, headers=None):
-    """
+    
     Returns performance data which contains two lists: [response_time_milliseconds, overload_count]
-    """
+    
     query = "query overload {__typename @include(if:true) @include(if:true) @include(if:true)}"
     performance_data = [[], []] # [response_time_milliseconds, overload_count]
     #response_tracking = []
@@ -157,56 +143,7 @@ def directive_overloading(url, headers=None):
         #x += 1
         time.sleep(1) #be nice to the server
     return performance_data
-    
-
-
-
-
-def make_post_request(url, data=None, json_data=None, headers=None):
     """
-    Make a POST request to the specified URL
-    
-    Args:
-        url (str): The URL to send the POST request to
-        data (dict, optional): Form data to send (for form-encoded requests)
-        json_data (dict, optional): JSON data to send
-        headers (dict, optional): Request headers
-    
-    Returns:
-        dict: Response information including status code and content
-    """
-    loader = LoadingCursor()
-    try:
-        loader.start()
-        scraper = cloudscraper.create_scraper()
-        response = scraper.post(
-            url=url,
-            data=data,
-            json=json_data,
-            headers=headers,
-            timeout=120 # set a timeout to avoid prematurely stopping the test
-        )
-        elapsed_time = response.elapsed.total_seconds()
-        loader.stop()
-        # Return response information
-        return {
-            'success': True,
-            'status_code': response.status_code,
-            'content': response.text,
-            'json': response.json() if response.headers.get('content-type') == 'application/json' else None,
-            'headers': dict(response.headers),
-            'response_time_seconds': elapsed_time,
-            'response_time_milliseconds': elapsed_time * 1000
-        }
-    
-    except Exception as e:
-        loader.stop()
-        return {
-            'success': False,
-            'error': str(e),
-            'status_code': None,
-            'response_time_seconds': None
-        }
 def main():
     """
     Main function of gqlmap.
@@ -218,6 +155,9 @@ def main():
         print_banner(BANNER)
 
         stdoutWrite(f"[*] Started at %s\n\n" % time.strftime("%X %Y/%m/%d"))
+
+        TARGET = GraphQL()
+
     except Exception as errMsg:
         excMsg = traceback.format_exc()
         logger.critical("%s\n%s" % (errMsg, excMsg))

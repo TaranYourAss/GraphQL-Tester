@@ -101,3 +101,18 @@ DIRECTIVE_OVERLOAD_MAX_RESPONSE_TIME = 60000
 
 #max amount of directives to add to any directive overload attempt
 DIRECTIVE_OVERLOAD_MAX_DIRECTIVE_COUNT = 100000
+
+#Common GraphQL endpoints
+GRAPHQL_ENDPOINTS = [
+    "/graphql",
+    "/graphiql",
+    "/api/graphql",
+    "/api/graphiql",
+    "/v1/graphql",
+    "/v1/graphiql",
+    "/api/v1/graphql",
+    "/api/v1/graphiql",
+    "/gql",
+    "/gql/v1",
+    "/gql/v2"
+]
