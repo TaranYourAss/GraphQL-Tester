@@ -1,6 +1,6 @@
 
 <!-- <img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/9e780001-edeb-448f-8e83-813270309f59" />  -->
-<img width="270" height="320" align="left" alt="Image" src="https://github.com/user-attachments/assets/ad4d3cc8-6580-4a11-93b5-b426db15266a" />
+<img width="700" height="420" align="left" alt="Image" src="https://github.com/user-attachments/assets/ad4d3cc8-6580-4a11-93b5-b426db15266a" />
 
 
 ### gqlmap  
