@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-__version__ = "1.0.0"
 
 try:
     import sys
@@ -42,7 +41,7 @@ except KeyboardInterrupt:
 # - add option to not verify SSL certificates
 # - add option to set timeout
 # - add option to set user-agent
-# - 
+# - add way to handle redirects
 # - add logging to file option
 # - take advantage of rate limiting bypasses
 # - 
