@@ -17,6 +17,7 @@ class GraphQL:
 
         if self.test_connection() == False:
             logger.critical("Unable to connect to the target URL.")
+        logger.info(f"\rOK")
 
     def send_query(self, query:str) -> dict:
         payload = {
@@ -43,7 +44,7 @@ class GraphQL:
             if response and response.status_code == 200:
                 return True
             elif response and response.status_code == 400:
-                logger.warning(f"Connected to {self.url}, but received a 400 Bad Request. This may indicate that the endpoint is valid but the default test query ('query': '{{ __typename }}') is malformed.")
+                logger.warning(f"Connected to {self.url}, but received a 400 Bad Request. This indicates that the endpoint is valid but the default GrapQL test query ('query': '{{ __typename }}') is malformed.")
                 return True
             else:
                 logger.error(f"Failed to connect to {self.url}. Status code: {response.status_code if response.status_code else 'No Response'}")
