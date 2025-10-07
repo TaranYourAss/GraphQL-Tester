@@ -2,7 +2,9 @@
 
 from lib.core.init import conf
 from lib.core.init import logger
+from lib.core.common import handleExit
 from lib.utils.http import request
+
 
 class GraphQL:
     def __init__(self) -> None:
@@ -13,11 +15,12 @@ class GraphQL:
         if conf.cookies:
             self.headers['Cookie'] = conf.cookies
 
-        logger.info(f"Attempting to connect to: {self.url}...")
+        logger.info(f"Testing connection to the target URL: {self.url}...")
 
         if self.test_connection() == False:
-            logger.critical("Unable to connect to the target URL.")
-        logger.info(f"\rOK")
+            handleExit("Unable to connect to the target URL", 1)
+
+        logger.info(f"OK")
 
     def send_query(self, query:str) -> dict:
         payload = {
@@ -44,7 +47,7 @@ class GraphQL:
             if response and response.status_code == 200:
                 return True
             elif response and response.status_code == 400:
-                logger.warning(f"Connected to {self.url}, but received a 400 Bad Request. This indicates that the endpoint is valid but the default GrapQL test query ('query': '{{ __typename }}') is malformed.")
+                logger.warning(f"Connected to {self.url}, but received a 400 Bad Request. This indicates that the endpoint is reachable but the default GrapQL test query ('query': '{{ __typename }}') may be malformed.")
                 return True
             else:
                 logger.error(f"Failed to connect to {self.url}. Status code: {response.status_code if response.status_code else 'No Response'}")

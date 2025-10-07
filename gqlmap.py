@@ -161,6 +161,9 @@ def main():
         excMsg = traceback.format_exc()
         logger.critical("%s\n%s" % (errMsg, excMsg))
         raise SystemExit
+    
+    finally:
+        stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
 
     logger.warning(msg="Test")

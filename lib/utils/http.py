@@ -3,6 +3,7 @@ import cloudscraper
 
 from lib.core.init import conf
 from lib.core.init import logger
+from lib.core.common import handleExit
 
 def request(url:str, method:str, data=None, json_data=None, headers=None, timeout=10) -> dict:
     """
@@ -36,13 +37,14 @@ def request(url:str, method:str, data=None, json_data=None, headers=None, timeou
 
     
     except cloudscraper.exceptions.CloudflareChallengeError:
-        logger.critical("Cloudflare anti-bot protection detected. Unable to bypass.")
+        handleExit("Cloudflare anti-bot protection detected. Unable to bypass.", 1)
 
     except cloudscraper.exceptions.CloudflareCode1020:
-        logger.critical("Cloudflare 1020 Access Denied error encountered.")
+        handleExit("Cloudflare 1020 Access Denied error encountered.", 1)
 
     except cloudscraper.exceptions.CloudflareLoopProtection as e:
-        logger.critical(f"Cloudflare loop protection detected: {e}")
+        handleExit(f"Cloudflare loop protection detected: {e}", 1)
+        
 
     except Exception as e:
-        logger.critical(f"An error occurred during the request to {request_params['url']}: {e}")
+        handleExit(f"An error occurred during the request to {request_params['url']}: {e}", 1)
