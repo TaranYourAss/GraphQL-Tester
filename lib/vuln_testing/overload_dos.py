@@ -24,22 +24,18 @@ def overload(url:str, type, headers:str=None) -> list:
                 overload_count = MAX_OVERLOAD_COUNT
 
             if type == "alias":
-                logger.info("Testing Alias Overloading...")
                 aliases = f" alias{overload_count}: __typename" * overload_count
                 json_data = {"query": f"query {type}_test {{{aliases}}}"}
             
             elif type == "directive":
-                logger.info("Testing Directive Overloading...")
                 json_data = {"query": f"query {type}_test {{__typename {'@include(if:true) ' * overload_count}}}"}
             
             elif type == "array":
-                logger.info("Testing Array-based Query Batching...")
                 json_data = []
                 for x in range(0, overload_count):
                     json_data.append({"query": f"query {type}_test {{__typename}}"})
 
             elif type == "field":
-                logger.info("Testing Field Duplication...")
                 fields = f" __typename" * overload_count
                 json_data = {"query": f"query {type}_test {{{fields}}}"}
             
@@ -117,13 +113,19 @@ def overload_all(url:str, headers:str=None) -> dict:
 
     for overload_type in overload_types:
 
-        if overload_type == 'alias' or overload_type == 'directive':
+        if overload_type == 'alias':
+            logger.info("Testing Alias Overloading...")
+            title = f"{overload_type.capitalize()} Overloading - Overload Count vs Response Time (ms)"
+        elif overload_type == 'directive':
+            logger.info("Testing Directive Overloading...")
             title = f"{overload_type.capitalize()} Overloading - Overload Count vs Response Time (ms)"
 
         elif overload_type == 'array':
+            logger.info("Testing Array-based Query Batching...")
             title = f"Array-based Query Batching - Batch Count vs Response Time (ms)"
 
         elif overload_type == 'field':
+            logger.info("Testing Field Duplication...")
             title = f"Field Duplication - Field Count vs Response Time (ms)"
         
         else:
