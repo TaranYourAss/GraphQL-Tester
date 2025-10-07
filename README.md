@@ -29,6 +29,8 @@ requests
 ```
 pip install cloudscraper, plotext, requests
 ```
+<br>
+<img width="1327" height="950" alt="Image" src="https://github.com/user-attachments/assets/e01c82a6-3154-460c-bbf0-f8e2e34554a7" />
 
 ## Overloading Info
 gqlmap by default will attempt multiple types of overloads to map what the GraphQL enginge is vulnerable to.  
