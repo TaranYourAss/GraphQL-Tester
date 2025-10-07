@@ -12,7 +12,9 @@ class GraphQL:
         }
         if conf.cookies:
             self.headers['Cookie'] = conf.cookies
-        print(self)
+
+        logger.info(f"Attempting to connect to: {self.url}...")
+
         if self.test_connection() == False:
             logger.critical("Unable to connect to the target URL.")
 
@@ -35,12 +37,16 @@ class GraphQL:
                 url=self.url,
                 method='POST',
                 headers=self.headers,
+                json_data={"query": "{ __typename }"},
                 timeout=10
             )
             if response and response.status_code == 200:
                 return True
+            elif response and response.status_code == 400:
+                logger.warning(f"Connected to {self.url}, but received a 400 Bad Request. This may indicate that the endpoint is valid but the default test query ('query': '{{ __typename }}') is malformed.")
+                return True
             else:
-                logger.error(f"Failed to connect to {self.url}. Status code: {response.status_code if response else 'No Response'}")
+                logger.error(f"Failed to connect to {self.url}. Status code: {response.status_code if response.status_code else 'No Response'}")
                 return False
         except Exception as e:
             logger.error(f"An error occurred while trying to connect to {self.url}: {e}")
