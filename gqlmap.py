@@ -52,6 +52,7 @@ except KeyboardInterrupt:
 # - add switch to disabled plotting of overload performance data
 # - make features modular so users can pick & choose what to test for
 # - display results of test at the end of the scan
+#- dynamically set plot width based on terminal size#
 #
 # - FEATURES
 #   - proxy
@@ -84,13 +85,17 @@ def main():
 
 
         TARGET = GraphQL()
-        #TODO integrate with GraphQL class
+        #TODO integrate with GraphQL class - handle results better - actually tell the user if vulnerable or not
+        #TODO add option to disable plotting
+        #TODO dynamically set plot width based on terminal size
         alias_overloading_data = alias_overloading(url=TARGET.url, headers=TARGET.headers, max_overloads=100000)
         plt.simple_bar(alias_overloading_data[1], alias_overloading_data[0], title="Alias Overloading - Overload Count vs Response Time (ms)", width=100)
         plt.show()
+        stdoutWrite("\n")
         directive_overloading_data = directive_overloading(url=TARGET.url, headers=TARGET.headers, max_overloads=100000)
         plt.simple_bar(directive_overloading_data[1], directive_overloading_data[0], title="Directive Overloading - Overload Count vs Response Time (ms)", width=100)
         plt.show()
+        stdoutWrite("\n")
 
     except requests.exceptions.HTTPError as httpErrMsg:
         logger.critical(f"Error Message: {httpErrMsg}")
