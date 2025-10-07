@@ -79,7 +79,7 @@ def alias_overloading(url:str, headers:str=None, max_overloads:str=1) -> list:
     logger.info("Testing Alias Overloading")
     
     #test it allows aliases
-    query = "query alias_test {{alias: __typename}}"
+    query = "query alias_test {alias: __typename}"
     results = request(
         url=url,
         method='POST',
@@ -87,6 +87,9 @@ def alias_overloading(url:str, headers:str=None, max_overloads:str=1) -> list:
         headers=headers,
         timeout=10
     )
+    #TODO handle syntax errors
+    # status will be 500 
+    # {"errors":[{"message":"Syntax Error: Expected Name, found }","locations":[{"line":1,"column":24}]}]}
     print(results.text)
     results.raise_for_status()
 
