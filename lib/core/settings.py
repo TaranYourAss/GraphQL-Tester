@@ -22,7 +22,7 @@ class COLOURS:
     RED_BACKGROUND = '\033[41m'
 
 # sqlmap version (<major>.<minor>.<month>.<monthly commit>)
-VERSION = "0.1.10.6"
+VERSION = "0.2.10.7"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
 BANNER_OLD = rf"""
