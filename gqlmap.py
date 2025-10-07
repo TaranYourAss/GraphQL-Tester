@@ -3,6 +3,8 @@
 try:
     import sys
     sys.dont_write_bytecode = True
+
+    import os
     import requests
     import cloudscraper
     import json
@@ -14,23 +16,26 @@ try:
     import plotext as plt
 
     import lib.parse.cmdargs as cmdargs
-    from lib.core.init import conf
-    from lib.core.init import logger
+    from lib.core.init import conf, logger 
     from lib.core.options import initOptions
     from lib.core.settings import BANNER
-    from lib.core.common import print_banner
-    from lib.core.common import stdoutWrite
+    from lib.core.common import print_banner, stdoutWrite
     from lib.core.graphql import GraphQL
-    from lib.vuln_testing.overload_dos import directive_overloading
-    from lib.vuln_testing.overload_dos import alias_overloading
+
+
+    conf.term_width = os.get_terminal_size().columns
 
 
       
+except OSError:
+    error = "Could not determine terminal size. Possibly running in a non-terminal environment"
 
 except KeyboardInterrupt:
-    error = "user aborted during library importing"
-    import time
-    sys.exit("\r[%s] [CRITICAL] %s" % (time.strftime("%X"), error))
+    error = "User aborted during library importing"
+
+finally:
+    if 'error' in locals():
+        sys.exit("\r[%s] [CRITICAL] %s" % (time.strftime("%X"), error))
 
 #TODO: 
 # - automatically try GET & POST
@@ -48,7 +53,6 @@ except KeyboardInterrupt:
 # - add logging to file option
 # - take advantage of rate limiting bypasses
 # - make overload tests more robust - handle syntax errors
-# - make overload tests a single function with options for overload type
 # - add switch to disabled plotting of overload performance data
 # - make features modular so users can pick & choose what to test for
 # - display results of test at the end of the scan

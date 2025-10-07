@@ -14,7 +14,14 @@ def overload(url:str, type, headers:str=None) -> list:
     overload_count = 1
     while True: #loop until we hit a stopping condition or keyboard interrupt
         try:
+
             overload_count = overload_count * 2
+            if conf.max_overload_count:
+                if overload_count > conf.max_overload_count:
+                    overload_count = conf.max_overload_count
+
+            elif overload_count > MAX_OVERLOAD_COUNT:
+                overload_count = MAX_OVERLOAD_COUNT
 
             if type == "alias":
                 logger.info("Testing Alias Overloading...")
@@ -74,17 +81,19 @@ def overload(url:str, type, headers:str=None) -> list:
             elif overload_count >= MAX_OVERLOAD_COUNT:
                 logger.info(f"Reached default maximum overload count of {MAX_OVERLOAD_COUNT}, stopping test")
                 break
-            #TODO add option to set these conf values
-            """
-            if conf.max_response_time:
-                if response_time_ms >= conf.max_response_time * 1000:
-                    logger.info(f"Response time exceeded user set maximum time of {conf.max_response_time} seconds, stopping test")
+
+            
+            if conf.max_overload_response:
+                # we assume the user set a value in seconds so convert to ms
+                if response_time_ms >= conf.max_overload_response * 1000:
+                    logger.info(f"Response time exceeded user set maximum time of {conf.max_overload_response} seconds, stopping test")
                     break
-            elif conf.max_overloads:
-                if overload_count >= conf.max_overloads:
-                    logger.info(f"Reached user set maximum overload count of {conf.max_overloads}, stopping test")
+
+            elif conf.max_overload_count:
+                if overload_count >= conf.max_overload_count:
+                    logger.info(f"Reached user set maximum overload count of {conf.max_overload_count}, stopping test")
                     break
-            """
+            
             # TODO: add a way to check if the response time is constnantly increasing
             # need to make sure that the repsonse times are tied to the overload count
             # - if the overload count is increasing but the response time is not the application is not vulnerable
@@ -122,6 +131,12 @@ def overload_all(url:str, headers:str=None) -> dict:
         
         performance_data = overload(url=url, type=overload_type, headers=headers)
 
-        plt.simple_bar(performance_data[1], performance_data[0], title=title, width=100)
+        # Determine plot width based on terminal size
+        if conf.term_width > 100:
+            width = 100
+        else:
+            width = conf.term_width
+
+        plt.simple_bar(performance_data[1], performance_data[0], title=title, width=width)
         plt.show()
         stdoutWrite("\n")

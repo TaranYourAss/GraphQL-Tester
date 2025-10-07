@@ -11,6 +11,8 @@ def initOptions(cmdlineargs) -> None:
     conf.target_url = cmdlineargs.target_url
     conf.cookies = cmdlineargs.cookies
     conf.colourless = cmdlineargs.colourless
+    conf.max_overload_response = cmdlineargs.max_overload_response
+    conf.max_overload_count = cmdlineargs.max_overload_count
 
     if conf.colourless == True:
         from lib.core.log import LOGGER_HANDLER
