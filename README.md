@@ -4,71 +4,62 @@
 
 
 ### gqlmap  
-### [![Python 3.x](https://img.shields.io/badge/python-3.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
+### [![Python 3.x](https://img.shields.io/badge/python-3.11.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
 
 <br clear="right"/>  
 <br clear="left"/>  
-  
+<br>  
 gqlmap is is an open source penetration testing tool that maps GraphQL engines and automates the process of detecting and exploiting GraphQL vulnerabilities.  
 
-
-<details open>
-<summary>Detections</summary>
-&nbsp;&nbsp;&nbsp;&nbsp;Directive Overloading  
-</details>
-
-<br/><br/><br/>
-### Directive Overloading
-
-Directive overloading occurs when an attacker leverages a large number of directives in a query to overwhelm the server's processing capabilities. gqlmap detects if an engine is vulnerable to Directive Overloads by exponentially adding directives to GraphQL queries, and then plotting the data on a simple bar chart.  
+#### Current Detections
+- Directive Overloading
+- Alias Overloading
+- Array-based Query Batching
+- Field Duplication
 
 
-Queries designed to overload the GraphQL engine with excessive directives may lead to a denial-of-service of the entire GraphQL engine, as well as resource exhaustion where a significant amount of computational resources are used to parse and validate the non-existent directives, which can result in memory exhaustion or CPU spikes.  
+## Usage
+```
+python3 gqlmap.py --url=https://{WEBAPP}.com/gql/v2 --cookies='session=abc123; extra=123abc' --max_overload_response=30
+```
+## Requirements  
+cloudscraper  
+plotext  
+requests  
+```
+pip install cloudscraper, plotext, requests
+```
+
+## Overloading Info
+gqlmap by default will attempt multiple types of overloads to map what the GraphQL enginge is vulnerable to.  
+<br>
+This is done by coninuously doubling the fields, directives, aliases, etc within each GraphQL query until a maximum set timeout or overload count is reached:  
+> query alias_test {alias1: __typename alias2: __typename}  
+> query alias_test {alias1: __typename alias2: __typename alias2: __typename alias3: __typename alias4: __typename}  
+<br>
+gqlmap takes a maximalist approach to overload testing to fully ensure denial-of-service is possible, without fully causing a denial-of-service of the application.  Applications may allow large amount of aliases, directives, fields, etc before rejecting/filtering or timing-out queries.  
   
 If the GraphQL endpoint does not either:  
-- limit directives
+- limit directives, aliases, fields, etc
 - filter on requests with excessive body-size
 - utilize execution timeouts  
 
-you should see the response time continously increase with the number of directives.  
+you should see the response time continously increase with the number of overload attmempts.  
+
+> [!WARNING]
+> Queries designed to overload the GraphQL engine may lead to a denial-of-service of the entire GraphQL engine, as well as resource exhaustion where a significant amount of computational resources are used to parse and validate the non-existent directives, which can result in memory exhaustion or CPU spikes.
+> Always utilize either of the --max_overload_count or --max_overload_response arguments to safely test the application.  
+
 > [!NOTE]  
-> The script will end if the web app took longer than 60s to respond.  
+> By default, gqlmap will end if the app took longer than 60s to respond or if the overload count exceeds 100,000.  
 > The script only supports POST requests and formats each query as JSON within the request body.
 
 > {"query": "query overload {__typename @include(if:true) @include(if:true) @include(if:true)}"}
 
 
-## Requirements  
-cloudscraper  
-plotext (optional if not plotting data into bar chart)
-```
-pip install cloudscraper, plotext
-```
-
-## Usage
-```
-python3 directive_overload.py --url https://{WEBAPP}.com/gql/v2 --cookies 'session=abc123; extra=123abc' --plot-data True
-```
-```
-Overload Count: 6 - Response Time (ms): 401.748
-Overload Count: 12 - Response Time (ms): 443.837
-Overload Count: 24 - Response Time (ms): 386.138
-Overload Count: 48 - Response Time (ms): 417.026
-Overload Count: 96 - Response Time (ms): 458.553
-Overload Count: 192 - Response Time (ms): 576.506
-Overload Count: 384 - Response Time (ms): 467.536
-Overload Count: 768 - Response Time (ms): 559.919
-Overload Count: 1536 - Response Time (ms): 610.653
-Overload Count: 3072 - Response Time (ms): 839.994
-Overload Count: 6144 - Response Time (ms): 1451.719
-Overload Count: 12288 - Response Time (ms): 2055.501
-Overload Count: 24576 - Response Time (ms): 3778.69
-Overload Count: 49152 - Response Time (ms): 6874.083
-Overload Count: 98304 - Response Time (ms): 14294.663
-```
-<img width="941" height="341" alt="Image" src="https://github.com/user-attachments/assets/063a7413-ec03-423a-b11a-b438eef6aa7e" />
-
 
 
 > [!CAUTION]
-> Attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.  
+> Attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
+
+<sub><em>Made in Canada 🇨🇦</em></sub>
