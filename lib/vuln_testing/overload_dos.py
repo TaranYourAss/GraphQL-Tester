@@ -14,7 +14,7 @@ def directive_overloading(url:str, headers:str=None, max_overloads:str=1) -> lis
     
     
     #test it allows directives
-    query = "query directive_test {{__typename @include(if:true)}}"
+    query = "query directive_test {__typename @include(if:true)}"
     results = request(
         url=url,
         method='POST',
