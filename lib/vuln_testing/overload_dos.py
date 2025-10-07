@@ -87,6 +87,7 @@ def alias_overloading(url:str, headers:str=None, max_overloads:str=1) -> list:
         headers=headers,
         timeout=10
     )
+    print(results.text)
     results.raise_for_status()
 
     performance_data = [[], []] # [response_time_seconds, overload_count]
