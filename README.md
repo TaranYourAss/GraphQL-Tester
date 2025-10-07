@@ -23,7 +23,8 @@ gqlmap is is an open source penetration testing tool that maps GraphQL engines a
 python3 gqlmap.py --url=https://{WEBAPP}.com/gql/v2 --cookies='session=abc123; extra=123abc' --max_overload_response=30
 ```
 <br>
-<img width="1327" height="950" alt="Image" src="https://github.com/user-attachments/assets/e01c82a6-3154-460c-bbf0-f8e2e34554a7" />
+<img width="1327" height="950" alt="Image" src="https://github.com/user-attachments/assets/e01c82a6-3154-460c-bbf0-f8e2e34554a7" />  
+
 ## Requirements  
 cloudscraper  
 plotext  
