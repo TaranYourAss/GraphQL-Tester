@@ -4,7 +4,7 @@
 
 
 ### gqlmap  
-### [![Python 3.x](https://img.shields.io/badge/python-3.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
+### [![Python 3.x](https://img.shields.io/badge/python-3.11.x-yellow.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv3-red.svg)](https://raw.githubusercontent.com/TaranYourAss/gqlmap/master/LICENSE)
 
 <br clear="right"/>  
 <br clear="left"/>  
