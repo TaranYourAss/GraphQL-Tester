@@ -3,7 +3,7 @@
 try:
     import sys
     sys.dont_write_bytecode = True
-
+    import requests
     import cloudscraper
     import json
     import time
@@ -86,6 +86,11 @@ def main():
         directive_overloading_data = directive_overloading(url=TARGET.url, headers=TARGET.headers, max_overloads=100000)
         plt.simple_bar(directive_overloading_data[1], directive_overloading_data[0], title="Directive Overloading - Overload Count vs Response Time (ms)", width=100)
         plt.show()
+
+    except requests.exceptions.HTTPError as httpErrMsg:
+        logger.critical(f"Error Message: {httpErrMsg}")
+        raise SystemExit
+    
     except Exception as errMsg:
         excMsg = traceback.format_exc()
         logger.critical("%s\n%s" % (errMsg, excMsg))
