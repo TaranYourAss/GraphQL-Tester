@@ -12,8 +12,8 @@ class GraphQL:
         }
         if conf.cookies:
             self.headers['Cookie'] = conf.cookies
-
-        if self.test_connection(self) == False:
+        print(self)
+        if self.test_connection() == False:
             logger.critical("Unable to connect to the target URL.")
 
     def send_query(self, query:str) -> dict:
