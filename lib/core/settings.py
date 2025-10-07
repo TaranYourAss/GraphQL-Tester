@@ -96,11 +96,13 @@ LOGGING_LEVEL_COLOURS = {
     'CRITICAL': COLOURS.RED_BACKGROUND
   }
 
-#the maximum amount of time in ms to wait on each directive overload attack before stopping the test
-DIRECTIVE_OVERLOAD_MAX_RESPONSE_TIME = 60000
+#the maximum amount of time in ms to wait on each overload attack before stopping the test
+MAX_RESPONSE_TIME = 60000 #millisecond only
 
-#max amount of directives to add to any directive overload attempt
-DIRECTIVE_OVERLOAD_MAX_DIRECTIVE_COUNT = 100000
+#max amount of directives to add to any overload attempt before stopping the test
+MAX_OVERLOAD_COUNT = 100000
+
+OVERLOAD_TYPES = ["alias", "directive", "array", "field"]
 
 #Common GraphQL endpoints
 GRAPHQL_ENDPOINTS = [

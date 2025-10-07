@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-from lib.core.init import conf
-from lib.core.init import logger
+from lib.core.init import conf, logger
 from lib.core.common import handleExit
 from lib.utils.http import request
+
+from lib.vuln_testing.overload_dos import overload, overload_all
 
 
 class GraphQL:
@@ -55,3 +56,7 @@ class GraphQL:
         except Exception as e:
             logger.error(f"An error occurred while trying to connect to {self.url}: {e}")
             return False
+    def vuln_scan_all(self) -> None:
+        #TODO add ability to select level of testing
+        overload_all(url=self.url, headers=self.headers)
+        #TODO add other vuln tests here
