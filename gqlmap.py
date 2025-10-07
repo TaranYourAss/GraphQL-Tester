@@ -47,7 +47,12 @@ except KeyboardInterrupt:
 # - add way to handle redirects
 # - add logging to file option
 # - take advantage of rate limiting bypasses
-# - 
+# - make overload tests more robust - handle syntax errors
+# - make overload tests a single function with options for overload type
+# - add switch to disabled plotting of overload performance data
+# - make features modular so users can pick & choose what to test for
+# - display results of test at the end of the scan
+#
 # - FEATURES
 #   - proxy
 #   - fingerprint GraphQL engine
