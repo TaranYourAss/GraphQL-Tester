@@ -99,9 +99,13 @@ LOGGING_LEVEL_COLOURS = {
 #the maximum amount of time in ms to wait on each overload attack before stopping the test
 MAX_RESPONSE_TIME = 60000 #millisecond only
 
-#max amount of directives to add to any overload attempt before stopping the test
+#max amount of items to add to any overload attempt before stopping the test
 MAX_OVERLOAD_COUNT = 100000
 
+#default amount of items to add to any quick overload attempt
+DEFAULT_QUICK_OVERLOAD_COUNT = 500
+
+#types of overload tests
 OVERLOAD_TYPES = ["alias", "directive", "array", "field"]
 
 #Common GraphQL endpoints

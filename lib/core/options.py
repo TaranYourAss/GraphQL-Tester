@@ -13,6 +13,7 @@ def initOptions(cmdlineargs) -> None:
     conf.colourless = cmdlineargs.colourless
     conf.max_overload_response = cmdlineargs.max_overload_response
     conf.max_overload_count = cmdlineargs.max_overload_count
+    conf.full_overload = cmdlineargs.full_overload
 
     if conf.colourless == True:
         from lib.core.log import LOGGER_HANDLER

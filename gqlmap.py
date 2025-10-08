@@ -69,6 +69,9 @@ finally:
 #   - Array-based Query Batching
 #   - Field Duplication Vulnerability
 #   - Incremental delivery abuse
+#   - Field suggestions abuse
+#   - GraphQL IDE enable
+#   - unhandled errors
 #   - Persisted Query Abuse - COPILOT GENEREATED THIS - IDK WHAT THIS IS
 #   - Automatic query chaining based on schema - COPILOT GENEREATED THIS - IDK WHAT THIS IS
 #   - Authorization Bypass via Introspection - COPILOT GENEREATED THIS - IDK WHAT THIS IS
