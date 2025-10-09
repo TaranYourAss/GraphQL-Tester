@@ -5,4 +5,6 @@ from lib.core.datatypes import AttribDict
 
 conf = AttribDict()
 
+results = AttribDict()
+
 logger = LOGGER

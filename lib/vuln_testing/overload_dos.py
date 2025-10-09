@@ -5,7 +5,7 @@ import plotext as plt
 
 
 from lib.utils.http import request
-from lib.core.init import logger, conf
+from lib.core.init import logger, conf, results
 from lib.core.common import stdoutWrite
 from lib.core.settings import MAX_OVERLOAD_COUNT, MAX_RESPONSE_TIME, OVERLOAD_TYPES, DEFAULT_QUICK_OVERLOAD_COUNT
 from lib.core.datatypes import AttribDict
@@ -205,6 +205,6 @@ def overload_all(url:str, headers:str=None) -> None:
                 logger.error(f"Skipping {overload_type} test due to error in generating query.")
                 
             elif response == 200:
-                logger.info(f"{OVERLOADTEST.type} - VULNERABLE")
+                results.vulnerable.append(OVERLOADTEST.type)
             else:
-                logger.info(f"{OVERLOADTEST.type} - NOT VULNERABLE")
+                results.not_vulnerable.append(OVERLOADTEST.type)

@@ -17,9 +17,8 @@ class GraphQL:
             self.headers['Cookie'] = conf.cookies
 
         logger.info(f"Testing connection to the target URL: {self.url}...")
-
-        if self.test_connection() == False:
-            handleExit("Unable to connect to the target URL", 1)
+        self.test_connection()
+            
 
         logger.info(f"OK")
 
@@ -55,7 +54,8 @@ class GraphQL:
                 return False
         except Exception as e:
             logger.error(f"An error occurred while trying to connect to {self.url}: {e}")
-            return False
+            handleExit("Unable to connect to the target URL", 1)
+        
     def vuln_scan_all(self) -> None:
         #TODO add ability to select level of testing
         overload_all(url=self.url, headers=self.headers)

@@ -16,10 +16,10 @@ try:
     import plotext as plt
 
     import lib.parse.cmdargs as cmdargs
-    from lib.core.init import conf, logger 
+    from lib.core.init import conf, logger, results
     from lib.core.options import initOptions
     from lib.core.settings import BANNER
-    from lib.core.common import print_banner, stdoutWrite
+    from lib.core.common import print_banner, stdoutWrite, addColour
     from lib.core.graphql import GraphQL
 
 
@@ -55,8 +55,6 @@ finally:
 # - make overload tests more robust - handle syntax errors
 # - add switch to disabled plotting of overload performance data
 # - make features modular so users can pick & choose what to test for
-# - display results of test at the end of the scan
-#- dynamically set plot width based on terminal size#
 #
 # - FEATURES
 #   - proxy
@@ -65,12 +63,9 @@ finally:
 #   - attempt CSRF attacks
 #   - attempt cross-site websocket hijacking
 #   - rate limit bypassing using Aliases 
-#   - Alias Overloading
-#   - Array-based Query Batching
-#   - Field Duplication Vulnerability
 #   - Incremental delivery abuse
 #   - Field suggestions abuse
-#   - GraphQL IDE enable
+#   - GraphQL IDE enabled
 #   - unhandled errors
 #   - Persisted Query Abuse - COPILOT GENEREATED THIS - IDK WHAT THIS IS
 #   - Automatic query chaining based on schema - COPILOT GENEREATED THIS - IDK WHAT THIS IS
@@ -106,6 +101,13 @@ def main():
         raise SystemExit
     
     finally:
+        if results.vulnerable:
+            for vuln in results.vulnerable:
+                logger.info(f"{addColour(text="Vulnerable", colour="RED_BACKGROUND`")}: {vuln}")
+        
+        if results.not_vulnerable:
+            for not_vuln in results.not_vulnerable:
+                logger.info(f"{addColour(text="Not Vulnerable", colour="BRIGHT_GREEN")}: {not_vuln}")
         stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
 
@@ -123,20 +125,3 @@ if __name__ == "__main__":
         raise
     except:
         traceback.print_exc()
-    """
-    header={"Content-Type": "application/json"}
-    if args.cookies:
-        header["Cookie"] = args.cookies
-    
-    #default to plotting data
-    if args.plot_bool and args.plot_bool.lower() in ['false', 'f', '0', 'no', 'n']:
-        args.plot_bool = False
-    else:
-        args.plot_bool = True
-
-    data = directive_overloading(args.target_url, headers=header if args.cookies else None)
-    if data and args.plot_bool==True:
-        import plotext as plt
-        plt.simple_bar(data[1], data[0], title="GraphQL Directive Overloading Performance", width=100)
-        plt.show()
-    """

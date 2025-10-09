@@ -1,10 +1,18 @@
 #!/usr/bin/env python
 import sys
 
-from lib.core.settings import BANNER_CHAR_COLOURS
-from lib.core.settings import COLOURS
-from lib.core.init import conf
-from lib.core.init import logger
+from lib.core.settings import BANNER_CHAR_COLOURS, COLOURS
+from lib.core.init import conf, logger
+
+
+def addColour(text:str, colour:str) -> str:
+    """
+    Adds ANSI colour codes to the given text.
+    """
+    if conf.colourless:
+        return text
+    else:
+        return f"{colour.upper()}{text}{COLOURS.RESET}"
 
 def stdoutWrite(text: str) -> None:
     """

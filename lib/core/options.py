@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from lib.core.init import conf
-from lib.core.init import logger
+
+from lib.core.init import conf, logger, results
 
 
 def initOptions(cmdlineargs) -> None:
@@ -14,6 +14,8 @@ def initOptions(cmdlineargs) -> None:
     conf.max_overload_response = cmdlineargs.max_overload_response
     conf.max_overload_count = cmdlineargs.max_overload_count
     conf.full_overload = cmdlineargs.full_overload
+    results.vulnerable = []
+    results.not_vulnerable = []
 
     if conf.colourless == True:
         from lib.core.log import LOGGER_HANDLER
