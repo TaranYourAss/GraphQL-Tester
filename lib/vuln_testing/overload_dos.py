@@ -8,7 +8,15 @@ from lib.utils.http import request
 from lib.core.init import logger, conf, results
 from lib.core.common import stdoutWrite
 from lib.core.settings import MAX_OVERLOAD_COUNT, MAX_RESPONSE_TIME, OVERLOAD_TYPES, DEFAULT_QUICK_OVERLOAD_COUNT
+from lib.core.settings import RESULT_TEMPLATE
 from lib.core.datatypes import AttribDict
+
+def validateVulnerable(response) -> bool:
+    #TODO add better validation of response to make sure the overload worked
+    if response and response.status_code == 200:
+        return True
+    else:
+        return False
 
 def init_query(type:str, overload_count:int) -> dict:
     if type == "alias":
@@ -64,7 +72,8 @@ def quick_overload(url:str, type:str, headers:str=None, overload_count:int=None)
 
 
 
-def overload(url:str, type, headers:str=None) -> list:
+def overload(url:str, type, headers:str=None, fullTest:bool=False) -> list:
+
     performance_data = [[], []] # [response_time_seconds, overload_count]
     overload_count = 1
     while True: #loop until we hit a stopping condition or keyboard interrupt
@@ -161,7 +170,7 @@ def overload_all(url:str, headers:str=None) -> None:
         if overload_type == 'alias':
             logger.info("Testing Alias Overloading...")
             OVERLOADTEST.chart_title = f"{overload_type.capitalize()} Overloading - Overload Count vs Response Time (ms)"
-            OVERLOADTEST.type = "Alias Overloading"
+            OVERLOADTEST.type = "Alias Overloading"            
 
         elif overload_type == 'directive':
             logger.info("Testing Directive Overloading...")
@@ -181,9 +190,12 @@ def overload_all(url:str, headers:str=None) -> None:
         else:
             logger.error(f"Unknown overload type: {overload_type}")
             continue
+        
+        OVERLOADTEST.payload = init_query(type=overload_type, overload_count=DEFAULT_QUICK_OVERLOAD_COUNT)
+
 
         if conf.full_overload:
-            performance_data = overload(url=url, type=overload_type, headers=headers)
+            performance_data = overload(url=url, type=overload_type, headers=headers, fullTest=True)
             if performance_data is None:
                 continue
 
@@ -203,8 +215,14 @@ def overload_all(url:str, headers:str=None) -> None:
 
             if response is None:
                 logger.error(f"Skipping {overload_type} test due to error in generating query.")
-                
-            elif response == 200:
-                results.vulnerable.append(OVERLOADTEST.type)
+                continue
+
+            result = RESULT_TEMPLATE.copy()
+            result["Type"] = "Overload"
+            result["Title"] = OVERLOADTEST.type
+            result["Payload"] = OVERLOADTEST.payload["query"]
+
+            if validateVulnerable(response):
+                results.vulnerable.append(result)
             else:
-                results.not_vulnerable.append(OVERLOADTEST.type)
+                results.not_vulnerable.append(result)

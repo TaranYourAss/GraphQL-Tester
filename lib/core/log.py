@@ -16,16 +16,16 @@ class ColouredFormatter(logging.Formatter):
     def format(self, record):
         result = super().format(record)
         
-        level_colour = level_colours.get(record.levelname, COLOURS.RESET)
+        level_colour = level_colours.get(record.levelname, COLOURS['RESET'])
         result = result.replace(
             f"[{record.levelname}]", 
-            f"[{level_colour}{record.levelname}{COLOURS.RESET}]"
+            f"[{level_colour}{record.levelname}{COLOURS['RESET']}]"
         )
         
         # Color the timestamp (first [HH:MM:SS] pattern)
         result = re.sub(
             r'\[(\d{2}:\d{2}:\d{2})\]', 
-            f'[{COLOURS.MAGENTA}\\1{COLOURS.RESET}]', 
+            f'[{COLOURS['MAGENTA']}\\1{COLOURS['RESET']}]', 
             result, 
             count=1
         )

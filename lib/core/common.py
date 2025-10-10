@@ -12,7 +12,7 @@ def addColour(text:str, colour:str) -> str:
     if conf.colourless:
         return text
     else:
-        return f"{colour.upper()}{text}{COLOURS.RESET}"
+        return f"{COLOURS[f'{colour.upper()}']}{text}{COLOURS['RESET']}"
 
 def stdoutWrite(text: str) -> None:
     """
@@ -43,7 +43,7 @@ def print_banner(banner:str) -> None:
                 print(colored_line)
                 colored_line = ""
             elif char in BANNER_CHAR_COLOURS:
-                colored_line += BANNER_CHAR_COLOURS[char] + char + COLOURS.RESET
+                colored_line += BANNER_CHAR_COLOURS[char] + char + COLOURS['RESET']
             else:
                 colored_line += char
         if colored_line:

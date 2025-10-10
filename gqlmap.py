@@ -102,12 +102,24 @@ def main():
     
     finally:
         if results.vulnerable:
+            stdoutWrite("\ngqlmap identified the target to be vulnerable to the following:\n---\n")
+            stdoutWrite(f"{addColour("Vulnerable:", "BRIGHT_RED")}\n")
             for vuln in results.vulnerable:
-                logger.info(f"{addColour(text="Vulnerable", colour="RED_BACKGROUND`")}: {vuln}")
+                stdoutWrite(f"    Type: {vuln['Type']}")
+                stdoutWrite(f"    Title: {vuln['Title']}")
+                stdoutWrite(f"    Payload: {vuln['Payload']}")
+                stdoutWrite("\n")
+                
         
         if results.not_vulnerable:
-            for not_vuln in results.not_vulnerable:
-                logger.info(f"{addColour(text="Not Vulnerable", colour="BRIGHT_GREEN")}: {not_vuln}")
+            stdoutWrite("\ngqlmap attempted the following but found the target to not be vulnerable:\n---\n")
+            stdoutWrite(f"{addColour("Not Vulnerable:", "BRIGHT_GREEN")}\n")
+            for vuln in results.not_vulnerable:
+                stdoutWrite(f"    Type: {vuln['Type']}")
+                stdoutWrite(f"    Title: {vuln['Title']}")
+                stdoutWrite(f"    Payload: {vuln['Payload']}")
+                stdoutWrite("\n")
+                
         stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
 
