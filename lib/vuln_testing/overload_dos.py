@@ -183,15 +183,13 @@ def overload_all(url:str, headers:str=None) -> None:
             logger.error(f"Skipping {overload_type} test due to error in generating query.")
             continue
 
-
+        result = RESULT_TEMPLATE.copy()
+        result["Type"] = "Overload"
+        result["Title"] = overload.title
+        result["Payload"] = overload.payload
+        result["Technique"] = TECHNIQUES['overload'][overload_type]['technique']
 
         if validateVulnerable(response):
-            result = RESULT_TEMPLATE.copy()
-            result["Type"] = "Overload"
-            result["Title"] = overload.title
-            result["Payload"] = overload.payload
-            result["Technique"] = TECHNIQUES['overload'][overload_type]['technique']
-
             results.vulnerable.append(result)
 
             # if batch set we run full test
