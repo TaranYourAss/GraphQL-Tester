@@ -191,7 +191,7 @@ def overload_all(url:str, headers:str=None) -> None:
             logger.error(f"Unknown overload type: {overload_type}")
             continue
         
-        OVERLOADTEST.payload = init_query(type=overload_type, overload_count=DEFAULT_QUICK_OVERLOAD_COUNT)
+        OVERLOADTEST.payload = init_query(type=overload_type, overload_count=5)
         print(type(OVERLOADTEST.payload))
         print(OVERLOADTEST.payload)
         exit()
@@ -223,7 +223,7 @@ def overload_all(url:str, headers:str=None) -> None:
             result = RESULT_TEMPLATE.copy()
             result["Type"] = "Overload"
             result["Title"] = OVERLOADTEST.type
-            result["Payload"] = OVERLOADTEST.payload["query"]
+            result["Payload"] = OVERLOADTEST.payload['query']
 
             if validateVulnerable(response):
                 results.vulnerable.append(result)
