@@ -194,7 +194,6 @@ def overload_all(url:str, headers:str=None) -> None:
         OVERLOADTEST.payload = init_query(type=overload_type, overload_count=5)
         print(type(OVERLOADTEST.payload))
         print(OVERLOADTEST.payload)
-        exit()
 
 
         if conf.full_overload:
@@ -223,7 +222,7 @@ def overload_all(url:str, headers:str=None) -> None:
             result = RESULT_TEMPLATE.copy()
             result["Type"] = "Overload"
             result["Title"] = OVERLOADTEST.type
-            result["Payload"] = OVERLOADTEST.payload['query']
+            result["Payload"] = OVERLOADTEST.payload
 
             if validateVulnerable(response):
                 results.vulnerable.append(result)
