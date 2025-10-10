@@ -171,9 +171,7 @@ def overload_all(url:str, headers:str=None) -> None:
     """
     Perform all overload tests
     """
-    overload_types = OVERLOAD_TYPES
-
-    for overload_type in overload_types:
+    for overload_type in TECHNIQUES['overload']:
         overload = AttribDict()
 
 
