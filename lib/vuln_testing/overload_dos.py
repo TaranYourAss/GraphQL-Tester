@@ -203,7 +203,7 @@ def overload_all(url:str, headers:str=None) -> None:
             
             if conf.batch or conf.full_overload or do_full:
 
-                performance_data = overload(url=url, type=overload_type, headers=headers, fullTest=True)
+                performance_data = overload(url=url, type=overload_type, headers=headers)
                 if performance_data is None:
                     continue
 
