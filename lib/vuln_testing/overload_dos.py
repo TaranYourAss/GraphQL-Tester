@@ -6,7 +6,7 @@ import plotext as plt
 
 from lib.utils.http import request
 from lib.core.init import logger, conf, results
-from lib.core.common import stdoutWrite
+from lib.core.common import stdoutWrite, ask_yes_or_no
 from lib.core.settings import MAX_OVERLOAD_COUNT, MAX_RESPONSE_TIME, OVERLOAD_TYPES, DEFAULT_QUICK_OVERLOAD_COUNT
 from lib.core.settings import RESULT_TEMPLATE, TECHNIQUES
 from lib.core.datatypes import AttribDict
@@ -197,7 +197,11 @@ def overload_all(url:str, headers:str=None) -> None:
             # if batch set we run full test
             # if full_overload set we run full test
             # if both we run full test
-            if conf.batch or conf.full_overload:
+            if not (conf.batch or conf.full_overload):
+                logger.warning(f"Overloading is initially possible, however denial-of-service has not been confirmed.")
+                do_full = ask_yes_or_no("Would you like to confirm if denial-of-service is likely? (y/n): ")
+            
+            if conf.batch or conf.full_overload or do_full:
 
                 performance_data = overload(url=url, type=overload_type, headers=headers, fullTest=True)
                 if performance_data is None:

@@ -5,6 +5,7 @@ from lib.core.settings import BANNER_CHAR_COLOURS, COLOURS
 from lib.core.init import conf, logger
 
 
+
 def addColour(text:str, colour:str) -> str:
     """
     Adds ANSI colour codes to the given text.
@@ -50,3 +51,19 @@ def print_banner(banner:str) -> None:
             print(colored_line)
     else:
         print(banner)
+
+def ask_yes_or_no(question:str) -> bool:
+    """
+    Recieve input from user. Only accepts y or n. 
+
+    Returns True if y / False if n
+    """
+    answered = False
+    while answered == False:
+        ask = str(input(question))
+        if ask.lower() == "y" or ask == "":
+            return True
+        elif ask.lower() == "n":
+            return False
+        else:
+            stdoutWrite("\nInvalid input. Please enter 'y', 'n', or press Enter for 'y'.")
