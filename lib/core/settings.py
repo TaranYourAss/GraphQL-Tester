@@ -120,14 +120,14 @@ TECHNIQUES = {
             "chart_title": "Alias Overloading - Overload Count vs Response Time (ms)",
             "technique_type": "overload",
             "title": "Alias Overloading",
-            "technique": "Denial-of-Service - Mitre ATT&CK T0814"
+            "technique": "Mitre ATT&CK: T0814 Denial-of-Service"
           },
         "directive": {
             "type": "directive",
             "start_wrapper": "Testing Directive Overloading...",
             "chart_title": "Directive Overloading - Overload Count vs Response Time (ms)",
             "technique_type": "overload",
-            "technique": "Denial-of-Service - Mitre ATT&CK T0814"
+            "technique": "Mitre ATT&CK: T0814 Denial-of-Service"
         },
         "array": {
             "type": "array",
@@ -135,7 +135,7 @@ TECHNIQUES = {
             "chart_title": "Array-based Query Batching - Batch Count vs Response Time (ms)",
             "technique_type": "overload",
             "title": "Array-based Query Batching",
-            "technique": "Denial-of-Service - Mitre ATT&CK T0814"
+            "technique": "Mitre ATT&CK: T0814 Denial-of-Service"
         },
         "field": {
             "type": "field",
@@ -143,7 +143,7 @@ TECHNIQUES = {
             "chart_title": "Field Duplication - Field Count vs Response Time (ms)",
             "technique_type": "overload",
             "title": "Field Duplication",
-            "technique": "Denial-of-Service - Mitre ATT&CK T0814"
+            "technique": "Mitre ATT&CK: T0814 Denial-of-Service"
         }
     },
     "others": {}
