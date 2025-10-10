@@ -26,7 +26,7 @@ COLOURS = {
 
 
 # sqlmap version (<major>.<minor>.<month>.<monthly commit>)
-VERSION = "0.2.10.7"
+VERSION = "0.3.10.10"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
 BANNER_OLD = rf"""
@@ -112,6 +112,39 @@ DEFAULT_QUICK_OVERLOAD_COUNT = 500
 #types of overload tests
 OVERLOAD_TYPES = ["alias", "directive", "array", "field"]
 
+TECHNIQUES = {
+    "overload": {
+        "alias": {
+            "type": "alias",
+            "start_wrapper": "Testing Alias Overloading...",
+            "chart_title": "Alias Overloading - Overload Count vs Response Time (ms)",
+            "technique_type": "overload",
+            "technique": "Alias Overloading"
+          },
+        "directive": {
+            "type": "directive",
+            "start_wrapper": "Testing Directive Overloading...",
+            "chart_title": "Directive Overloading - Overload Count vs Response Time (ms)",
+            "technique_type": "overload",
+            "technique": "Directive Overloading"
+        },
+        "array": {
+            "type": "array",
+            "start_wrapper": "Testing Array-based Query Batching...",
+            "chart_title": "Array-based Query Batching - Batch Count vs Response Time (ms)",
+            "technique_type": "overload",
+            "technique": "Array-based Query Batching"
+        },
+        "field": {
+            "type": "field",
+            "start_wrapper": "Testing Field Duplication...",
+            "chart_title": "Field Duplication - Field Count vs Response Time (ms)",
+            "technique_type": "overload",
+            "technique": "Field Duplication"
+        }
+    },
+    "others": {}
+}
 #Common GraphQL endpoints
 GRAPHQL_ENDPOINTS = [
     "/graphql",

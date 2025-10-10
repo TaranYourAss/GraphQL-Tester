@@ -122,12 +122,12 @@ def main():
 
         stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
+    #logger.error(msg="Test")
 
-    logger.warning(msg="Test")
-    logger.info(msg="Test")
-    logger.debug(msg="Test")
-    logger.error(msg="Test")
-    logger.critical(msg="Test")
+    #logger.info(msg="Test")
+    #logger.debug(msg="Test")
+    #logger.warning(msg="Test")
+    #logger.critical(msg="Test")
 if __name__ == "__main__":
     try:
         main()

@@ -14,8 +14,10 @@ def initOptions(cmdlineargs) -> None:
     conf.max_overload_response = cmdlineargs.max_overload_response
     conf.max_overload_count = cmdlineargs.max_overload_count
     conf.full_overload = cmdlineargs.full_overload
+    conf.batch = cmdlineargs.batch
     results.vulnerable = []
     results.not_vulnerable = []
+
 
     if conf.colourless == True:
         from lib.core.log import LOGGER_HANDLER

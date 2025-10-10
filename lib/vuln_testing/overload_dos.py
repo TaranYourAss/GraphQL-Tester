@@ -8,7 +8,7 @@ from lib.utils.http import request
 from lib.core.init import logger, conf, results
 from lib.core.common import stdoutWrite
 from lib.core.settings import MAX_OVERLOAD_COUNT, MAX_RESPONSE_TIME, OVERLOAD_TYPES, DEFAULT_QUICK_OVERLOAD_COUNT
-from lib.core.settings import RESULT_TEMPLATE
+from lib.core.settings import RESULT_TEMPLATE, TECHNIQUES
 from lib.core.datatypes import AttribDict
 
 def validateVulnerable(response) -> bool:
@@ -20,7 +20,10 @@ def validateVulnerable(response) -> bool:
 
 def init_query(type:str, overload_count:int) -> dict:
     if type == "alias":
-        aliases = f" alias{overload_count}: __typename" * overload_count
+        aliases = ""
+        for i in range(0, overload_count):
+            aliases = aliases + f" alias{i}: __typename"
+        #aliases = f" alias{overload_count}: __typename * overload_count"
         json_data = {"query": f"query {type}_test {{{aliases}}}"}
 
     elif type == "directive":
@@ -72,7 +75,7 @@ def quick_overload(url:str, type:str, headers:str=None, overload_count:int=None)
 
 
 
-def overload(url:str, type, headers:str=None, fullTest:bool=False) -> list:
+def overload(url:str, type, headers:str=None) -> list:
 
     performance_data = [[], []] # [response_time_seconds, overload_count]
     overload_count = 1
@@ -113,7 +116,7 @@ def overload(url:str, type, headers:str=None, fullTest:bool=False) -> list:
             #    return
             #check if we got a non-200 status code
             if results.status_code != 200:
-                logger.error(f"Non-200 status code received, stopping test. \n Status Code: {results.status_code} - Response Time (ms): {response_time_ms}\n Content: {results.text}")
+                logger.error(f"Non-200 status code received, stopping overload test. \n Status Code: {results.status_code} - Response Time (ms): {response_time_ms}\n Content: {results.text}")
                 return
             
             performance_data[1].append(overload_count)
@@ -158,73 +161,68 @@ def overload(url:str, type, headers:str=None, fullTest:bool=False) -> list:
     return performance_data
 
 def overload_all(url:str, headers:str=None) -> None:
-    #TODO add way to turn off plotting data
     """
     Perform all overload tests and return the performance data.
     """
     overload_types = OVERLOAD_TYPES
 
     for overload_type in overload_types:
-        OVERLOADTEST = AttribDict()
+        overload = AttribDict()
 
-        if overload_type == 'alias':
-            logger.info("Testing Alias Overloading...")
-            OVERLOADTEST.chart_title = f"{overload_type.capitalize()} Overloading - Overload Count vs Response Time (ms)"
-            OVERLOADTEST.type = "Alias Overloading"            
+        try:
+            overload.payload = init_query(type=overload_type, overload_count=5)
+            overload.chart_title = TECHNIQUES["overload"][overload_type]["chart_title"]
+            overload.title = TECHNIQUES["overload"][overload_type]["technique"]
 
-        elif overload_type == 'directive':
-            logger.info("Testing Directive Overloading...")
-            OVERLOADTEST.chart_title = f"{overload_type.capitalize()} Overloading - Overload Count vs Response Time (ms)"
-            OVERLOADTEST.type = "Directive Overloading"
-
-        elif overload_type == 'array':
-            logger.info("Testing Array-based Query Batching...")
-            OVERLOADTEST.chart_title = f"Array-based Query Batching - Batch Count vs Response Time (ms)"
-            OVERLOADTEST.type = "Array-based Query Batching"
-
-        elif overload_type == 'field':
-            logger.info("Testing Field Duplication...")
-            OVERLOADTEST.chart_title = f"Field Duplication - Field Count vs Response Time (ms)"
-            OVERLOADTEST.type = "Field Duplication"
+            logger.info(TECHNIQUES["overload"][overload_type]["start_wrapper"])
         
-        else:
+        except NameError as errmsg:
             logger.error(f"Unknown overload type: {overload_type}")
+            stdoutWrite("\n" + errmsg + "\n")
             continue
         
-        OVERLOADTEST.payload = init_query(type=overload_type, overload_count=5)
-        #print(type(OVERLOADTEST.payload))
-        #print(OVERLOADTEST.payload)
 
 
-        if conf.full_overload:
-            performance_data = overload(url=url, type=overload_type, headers=headers, fullTest=True)
-            if performance_data is None:
-                continue
+        response = quick_overload(url=url, type=overload_type, headers=headers)
+        if response is None:
+            logger.error(f"Skipping {overload_type} test due to error in generating query.")
+            continue
 
-            # Determine plot width based on terminal size
-            if conf.term_width > 100:
-                width = 100
-            else:
-                width = conf.term_width
 
-            #TODO tell user if vulnerable or not
-            
-            plt.simple_bar(performance_data[1], performance_data[0], title=OVERLOADTEST.chart_title, width=width)
-            plt.show()
-            stdoutWrite("\n")
-        else:
-            response = quick_overload(url=url, type=overload_type, headers=headers)
 
-            if response is None:
-                logger.error(f"Skipping {overload_type} test due to error in generating query.")
-                continue
-
+        if validateVulnerable(response):
             result = RESULT_TEMPLATE.copy()
             result["Type"] = "Overload"
-            result["Title"] = OVERLOADTEST.type
-            result["Payload"] = OVERLOADTEST.payload
+            result["Title"] = overload.title
+            result["Payload"] = overload.payload
 
-            if validateVulnerable(response):
-                results.vulnerable.append(result)
-            else:
-                results.not_vulnerable.append(result)
+            results.vulnerable.append(result)
+
+            # if batch set we run full test
+            # if full_overload set we run full test
+            # if both we run full test
+            if conf.batch or conf.full_overload:
+
+                performance_data = overload(url=url, type=overload_type, headers=headers, fullTest=True)
+                if performance_data is None:
+                    continue
+
+                # Determine plot width based on terminal size
+                if conf.term_width > 100:
+                    width = 100
+                else:
+                    width = conf.term_width
+                
+                #TODO add way to turn off plotting data
+                plt.simple_bar(performance_data[1], performance_data[0], title=overload.chart_title, width=width)
+                plt.show()
+                stdoutWrite("\n")
+        else:
+            results.not_vulnerable.append(result)
+
+
+
+
+
+
+
