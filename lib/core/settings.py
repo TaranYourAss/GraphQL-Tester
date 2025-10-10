@@ -127,6 +127,7 @@ TECHNIQUES = {
             "start_wrapper": "Testing Directive Overloading...",
             "chart_title": "Directive Overloading - Overload Count vs Response Time (ms)",
             "technique_type": "overload",
+            "title": "Directive Overloading",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service"
         },
         "array": {
