@@ -193,6 +193,7 @@ def overload_all(url:str, headers:str=None) -> None:
         
         OVERLOADTEST.payload = init_query(type=overload_type, overload_count=DEFAULT_QUICK_OVERLOAD_COUNT)
         print(type(OVERLOADTEST.payload))
+        print(OVERLOADTEST.payload)
         exit()
 
 
