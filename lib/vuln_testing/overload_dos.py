@@ -169,17 +169,13 @@ def overload_all(url:str, headers:str=None) -> None:
     for overload_type in overload_types:
         overload = AttribDict()
 
-        try:
-            overload.payload = init_query(type=overload_type, overload_count=5)
-            overload.chart_title = TECHNIQUES["overload"][overload_type]["chart_title"]
-            overload.title = TECHNIQUES["overload"][overload_type]["title"]
 
-            logger.info(TECHNIQUES["overload"][overload_type]["start_wrapper"])
+        overload.payload = init_query(type=overload_type, overload_count=5)
+        overload.chart_title = TECHNIQUES["overload"][overload_type]["chart_title"]
+        overload.title = TECHNIQUES["overload"][overload_type]["title"]
+
+        logger.info(TECHNIQUES["overload"][overload_type]["start_wrapper"])
         
-        except NameError as errmsg:
-            logger.error(f"Unknown overload type: {overload_type}")
-            stdoutWrite("\n" + errmsg + "\n")
-            continue
         
 
 
