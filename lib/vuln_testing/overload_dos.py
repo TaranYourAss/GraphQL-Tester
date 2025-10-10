@@ -172,7 +172,7 @@ def overload_all(url:str, headers:str=None) -> None:
         try:
             overload.payload = init_query(type=overload_type, overload_count=5)
             overload.chart_title = TECHNIQUES["overload"][overload_type]["chart_title"]
-            overload.title = TECHNIQUES["overload"][overload_type]["technique"]
+            overload.title = TECHNIQUES["overload"][overload_type]["title"]
 
             logger.info(TECHNIQUES["overload"][overload_type]["start_wrapper"])
         
@@ -195,6 +195,7 @@ def overload_all(url:str, headers:str=None) -> None:
             result["Type"] = "Overload"
             result["Title"] = overload.title
             result["Payload"] = overload.payload
+            result["Technique"] = TECHNIQUES['overload'][overload_type]["technique"]
 
             results.vulnerable.append(result)
 
