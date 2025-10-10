@@ -104,21 +104,21 @@ def main():
             stdoutWrite("\ngqlmap identified the target to be vulnerable to the following:\n---\n")
             stdoutWrite(f"{addColour("Vulnerable:", "BRIGHT_RED")}\n")
             for vuln in results.vulnerable:
-                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}\n")
+                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
                 stdoutWrite(f"\n    Title: {vuln['Title']}")
                 stdoutWrite(f"\n    Payload: {vuln['Payload']}")
-                stdoutWrite("\n---")
+                stdoutWrite("\n")
                 
         
         if results.not_vulnerable:
             stdoutWrite("\ngqlmap attempted the following but found the target to not be vulnerable:\n---\n")
             stdoutWrite(f"{addColour("Not Vulnerable:", "BRIGHT_GREEN")}\n")
             for vuln in results.not_vulnerable:
-                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}\n")
-                stdoutWrite(f"\n    Title: {vuln['Title']}\n")
-                stdoutWrite(f"\n    Payload: {vuln['Payload']}\n")
-                stdoutWrite("\n---")
-
+                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
+                stdoutWrite(f"\n    Title: {vuln['Title']}")
+                stdoutWrite(f"\n    Payload: {vuln['Payload']}")
+                stdoutWrite("\n")
+        stdoutWrite("\n---")
         stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
     #logger.error(msg="Test")
