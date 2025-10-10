@@ -4,7 +4,7 @@ from lib.core.init import conf, logger
 from lib.core.common import handleExit
 from lib.utils.http import request
 
-from lib.vuln_testing.overload_dos import overload, overload_all
+from lib.vuln_testing.overload_dos import overload_all
 
 
 class GraphQL:
