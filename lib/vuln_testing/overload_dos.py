@@ -192,8 +192,8 @@ def overload_all(url:str, headers:str=None) -> None:
             continue
         
         OVERLOADTEST.payload = init_query(type=overload_type, overload_count=5)
-        print(type(OVERLOADTEST.payload))
-        print(OVERLOADTEST.payload)
+        #print(type(OVERLOADTEST.payload))
+        #print(OVERLOADTEST.payload)
 
 
         if conf.full_overload:
