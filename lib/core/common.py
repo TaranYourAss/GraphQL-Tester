@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from lib.core.settings import BANNER_CHAR_COLOURS, COLOURS
-from lib.core.init import conf, logger
+from lib.core.settings import BANNER_CHAR_COLOURS, COLOURS, SEVERITY_COLOURS
+from lib.core.init import conf, logger, results
 
 
 
@@ -67,3 +67,38 @@ def ask_yes_or_no(question:str) -> bool:
             return False
         else:
             stdoutWrite("\nInvalid input. Please enter 'y', 'n', or press Enter for 'y'.")
+
+def displayResults() -> None:
+    if results.vulnerable:
+        stdoutWrite("\ngqlmap identified the target to be vulnerable to the following:")
+        stdoutWrite("\n---")
+        stdoutWrite(f"\n{addColour("Vulnerable:", "BRIGHT_RED")}")
+        for vuln in results.vulnerable:
+            stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
+            stdoutWrite(f"\n    Title: {vuln['Title']}")
+            if vuln['Severity'] in SEVERITY_COLOURS:
+                severity = addColour(vuln['Severity'], SEVERITY_COLOURS[vuln['Severity']])
+            else:
+                severity = vuln['Severity']
+            stdoutWrite(f"\n    Severity: {severity}")
+            stdoutWrite(f"\n    Description: {vuln['Description']}")
+            stdoutWrite(f"\n    Payload: {vuln['Payload']}")
+            stdoutWrite("\n")
+            
+
+    if results.not_vulnerable:
+        stdoutWrite("\ngqlmap attempted the following but found the target to not be vulnerable:")
+        stdoutWrite("\n---")
+        stdoutWrite(f"\n{addColour("Not Vulnerable:", "BRIGHT_GREEN")}")
+        for vuln in results.not_vulnerable:
+            stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
+            stdoutWrite(f"\n    Title: {vuln['Title']}")
+            if vuln['Severity'] in SEVERITY_COLOURS:
+                severity = addColour(vuln['Severity'], SEVERITY_COLOURS[vuln['Severity']])
+            else:
+                severity = vuln['Severity']
+            stdoutWrite(f"\n    Severity: {severity}")
+            stdoutWrite(f"\n    Description: {vuln['Description']}")
+            stdoutWrite(f"\n    Payload: {vuln['Payload']}")
+            stdoutWrite("\n")
+    stdoutWrite("\n---")

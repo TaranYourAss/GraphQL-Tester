@@ -19,7 +19,7 @@ try:
     from lib.core.init import conf, logger, results
     from lib.core.options import initOptions
     from lib.core.settings import BANNER
-    from lib.core.common import print_banner, stdoutWrite, addColour
+    from lib.core.common import print_banner, stdoutWrite, addColour, displayResults
     from lib.core.graphql import GraphQL
 
 
@@ -100,25 +100,7 @@ def main():
         raise SystemExit
     
     finally:
-        if results.vulnerable:
-            stdoutWrite("\ngqlmap identified the target to be vulnerable to the following:\n---\n")
-            stdoutWrite(f"{addColour("Vulnerable:", "BRIGHT_RED")}\n")
-            for vuln in results.vulnerable:
-                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
-                stdoutWrite(f"\n    Title: {vuln['Title']}")
-                stdoutWrite(f"\n    Payload: {vuln['Payload']}")
-                stdoutWrite("\n")
-                
-        
-        if results.not_vulnerable:
-            stdoutWrite("\ngqlmap attempted the following but found the target to not be vulnerable:\n---\n")
-            stdoutWrite(f"{addColour("Not Vulnerable:", "BRIGHT_GREEN")}\n")
-            for vuln in results.not_vulnerable:
-                stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
-                stdoutWrite(f"\n    Title: {vuln['Title']}")
-                stdoutWrite(f"\n    Payload: {vuln['Payload']}")
-                stdoutWrite("\n")
-        stdoutWrite("\n---")
+        displayResults()
         stdoutWrite("\n[*] Finished at %s\n\n" % time.strftime("%X %Y/%m/%d"))
         
     #logger.error(msg="Test")

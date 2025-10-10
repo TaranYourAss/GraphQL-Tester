@@ -38,6 +38,13 @@ def init_query(type:str, overload_count:int) -> dict:
         fields = f" __typename" * overload_count
         json_data = {"query": f"query {type}_test {{{fields}}}"}
 
+    elif type == "circular_query":
+        overloaded = ' fields { type {' * overload_count
+        curly_brackets = ' } }' * overload_count
+        query = f'query circular_query_test {{ __schema {{ types {{ fields {{ type {{{overloaded} name }} }} }} }} }}{curly_brackets}'
+        json_data = {"query": query}
+
+
     else:
         logger.error(f"Unknown overload type: {type}")
         #TODO raise exception
@@ -162,7 +169,7 @@ def do_full_overload(url:str, type, headers:str=None) -> list:
 
 def overload_all(url:str, headers:str=None) -> None:
     """
-    Perform all overload tests and return the performance data.
+    Perform all overload tests
     """
     overload_types = OVERLOAD_TYPES
 
@@ -187,6 +194,8 @@ def overload_all(url:str, headers:str=None) -> None:
         result["Type"] = "Overload"
         result["Title"] = overload.title
         result["Payload"] = overload.payload
+        result["Description"] = TECHNIQUES['overload'][overload_type]['description']
+        result["Severity"] = TECHNIQUES['overload'][overload_type]['severity']
         result["Technique"] = TECHNIQUES['overload'][overload_type]['technique']
 
         if validateVulnerable(response):
