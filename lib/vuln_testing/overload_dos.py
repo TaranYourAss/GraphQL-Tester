@@ -199,13 +199,19 @@ def overload_all(url:str, headers:str=None) -> None:
         if validateVulnerable(response):
             results.vulnerable.append(result)
 
-            # if batch set we run full test
-            # if full_overload set we run full test
-            # if both we run full test
+            #user selected option to only do quick overload tests
+            if conf.quick_overload:
+                continue
+
+            #user did not use --batch or --full_overload
+            #ask user if they want to test if denial of service possible
             if not (conf.batch or conf.full_overload):
                 logger.warning(f"Overloading is initially possible, however denial-of-service has not been confirmed.")
                 do_full = ask_yes_or_no("Would you like to confirm if denial-of-service is likely? (y/n): ")
-            
+                
+            # if --batch set we run full test
+            # if --full_overload set we run full test
+            # if both set we run full test
             if conf.batch or conf.full_overload or do_full:
 
                 performance_data = do_full_overload(url=url, type=overload_type, headers=headers)

@@ -121,7 +121,7 @@ TECHNIQUES = {
             "technique_type": "overload",
             "title": "Alias Overloading",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service",
-            "description": "Alias Overloading is an attack that exploits GraphQL's ability to assign unique names (aliases) to fields in a query to request the same data-intensive field hundreds or thousands of times in a single request, overwhelming the server",
+            "description": "Alias Overloading is an attack that exploits GraphQL's ability to assign unique names (aliases) to fields in a query to request the same data-intensive field hundreds or thousands of times in a single request, overwhelming the server.",
             "severity": "high"
           },
         "directive": {
@@ -131,7 +131,7 @@ TECHNIQUES = {
             "technique_type": "overload",
             "title": "Directive Overloading",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service",
-            "description": "Directive Overloading is an attack that exploits GraphQL's @include or @skip directives with complex or recursive conditions to dramatically increase query complexity and exhaust server resources",
+            "description": "Directive Overloading is an attack that exploits GraphQL's @include or @skip directives with complex or recursive conditions to dramatically increase query complexity and exhaust server resources.",
             "severity": "high"
         },
         "array": {
@@ -141,7 +141,7 @@ TECHNIQUES = {
             "technique_type": "overload",
             "title": "Array-based Query Batching",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service",
-            "description": "Array-based Query Batching is a technique where multiple queries are sent as a single request in an array to overwhelm server resources and amplify the impact of an attack",
+            "description": "Array-based Query Batching is a technique where multiple queries are sent as a single request in an array to overwhelm server resources and amplify the impact of an attack.",
             "severity": "high"
         },
         "field": {
@@ -151,7 +151,7 @@ TECHNIQUES = {
             "technique_type": "overload",
             "title": "Field Duplication",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service",
-            "description": "Field Duplication is an attack where an attacker submits a query repeatedly requesting the same field to overwhelm the server's processing resources and potentially cause a denial of service",
+            "description": "Field Duplication is an attack where an attacker submits a query repeatedly requesting the same field to overwhelm the server's processing resources and potentially cause a denial of service.",
             "severity": "high"
         },
         "circular_query":{
@@ -161,7 +161,7 @@ TECHNIQUES = {
             "technique_type": "overload",
             "title": "Circular Query",
             "technique": "Mitre ATT&CK: T0814 Denial-of-Service",
-            "description": "A Circular Query via Introspection abuses GraphQL's self-documenting nature to discover and craft deeply nested queries that create resource-intensive cycles, potentially leading to a denial of service",
+            "description": "A Circular Query via Introspection abuses GraphQL's self-documenting nature to discover and craft deeply nested queries that create resource-intensive cycles, potentially leading to a denial of service.",
             "severity": "high"
         }
     },
@@ -172,7 +172,7 @@ TECHNIQUES = {
             "technique_type": "info_leak",
             "title": "Field Suggestions",
             "technique": "Mitre ATT&CK: T1592.002 Gather Victim Host Information: Software",
-            "description": "Field suggestions are a client-side feature, often powered by GraphQL introspection, that auto-completes available queries and fields, potentially exposing the API schema to anyone accessing the endpoint",
+            "description": "Field suggestions are a client-side feature, often powered by GraphQL introspection, that auto-completes available queries and fields, potentially exposing the API schema to anyone accessing the endpoint.",
             "severity": "low"
         }
     }

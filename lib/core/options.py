@@ -14,6 +14,7 @@ def initOptions(cmdlineargs) -> None:
     conf.max_overload_response = cmdlineargs.max_overload_response
     conf.max_overload_count = cmdlineargs.max_overload_count
     conf.full_overload = cmdlineargs.full_overload
+    conf.quick_overload = cmdlineargs.quick_overload
     conf.batch = cmdlineargs.batch
     results.vulnerable = []
     results.not_vulnerable = []
