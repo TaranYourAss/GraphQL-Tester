@@ -75,7 +75,7 @@ def quick_overload(url:str, type:str, headers:str=None, overload_count:int=None)
 
 
 
-def overload(url:str, type, headers:str=None) -> list:
+def do_full_overload(url:str, type, headers:str=None) -> list:
 
     performance_data = [[], []] # [response_time_seconds, overload_count]
     overload_count = 1
@@ -203,7 +203,7 @@ def overload_all(url:str, headers:str=None) -> None:
             
             if conf.batch or conf.full_overload or do_full:
 
-                performance_data = overload(url=url, type=overload_type, headers=headers)
+                performance_data = do_full_overload(url=url, type=overload_type, headers=headers)
                 if performance_data is None:
                     continue
 
