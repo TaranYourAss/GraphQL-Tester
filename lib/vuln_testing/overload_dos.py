@@ -67,7 +67,7 @@ def quick_overload(url:str, type:str, headers:str=None, overload_count:int=None)
     response_time_ms = results.elapsed.total_seconds() * 1000
 
     #TODO add better validation of response to make sure the overload worked
-    return results.status_code
+    return results
 
 
 
