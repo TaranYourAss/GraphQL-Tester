@@ -26,7 +26,7 @@ COLOURS = {
 
 
 # sqlmap version (<major>.<minor>.<month>.<monthly commit>)
-VERSION = "0.3.10.10"
+VERSION = "0.3.10.15"
 DESCRIPTION = "GraphQL mapping + vulnerability scanner"
 
 BANNER_OLD = rf"""
@@ -198,6 +198,10 @@ GRAPHQL_ENDPOINTS = [
     "/gql",
     "/gql/v1",
     "/gql/v2"
+]
+
+EXTRA_ENDPOINTS = [
+    "/admin"
 ]
 
 #don't need this at all but its still here
