@@ -25,7 +25,7 @@ class ColouredFormatter(logging.Formatter):
         # Color the timestamp (first [HH:MM:SS] pattern)
         result = re.sub(
             r'\[(\d{2}:\d{2}:\d{2})\]', 
-            f'[{COLOURS['MAGENTA']}\\1{COLOURS['RESET']}]', 
+            f"[{COLOURS['MAGENTA']}\\1{COLOURS['RESET']}]", 
             result, 
             count=1
         )

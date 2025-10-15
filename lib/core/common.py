@@ -72,7 +72,7 @@ def displayResults() -> None:
     if results.vulnerable:
         stdoutWrite("\ngqlmap identified the target to be vulnerable to the following:")
         stdoutWrite("\n---")
-        stdoutWrite(f"\n{addColour("Vulnerable:", "BRIGHT_RED")}")
+        stdoutWrite(f"\n{addColour('Vulnerable:', 'BRIGHT_RED')}")
         for vuln in results.vulnerable:
             stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
             stdoutWrite(f"\n    Title: {vuln['Title']}")
@@ -89,7 +89,7 @@ def displayResults() -> None:
     if results.not_vulnerable:
         stdoutWrite("\ngqlmap attempted the following but found the target to not be vulnerable:")
         stdoutWrite("\n---")
-        stdoutWrite(f"\n{addColour("Not Vulnerable:", "BRIGHT_GREEN")}")
+        stdoutWrite(f"\n{addColour('Not Vulnerable:', 'BRIGHT_GREEN')}")
         for vuln in results.not_vulnerable:
             stdoutWrite(f"\n    Type: {vuln['Type']} - {vuln['Technique']}")
             stdoutWrite(f"\n    Title: {vuln['Title']}")
