@@ -54,7 +54,7 @@ you should see the response time continously increase with the number of overloa
 > Always utilize either of the --max_overload_count or --max_overload_response arguments to safely test the application.  
 
 > [!NOTE]  
-> By default, gqlmap will end if the app took longer than 60s to respond or if the overload count exceeds 100,000.  
+> By default, gqlmap will end if the app took longer than 40s to respond or if the overload count exceeds 65,536.  
 > The script only supports POST requests and formats each query as JSON within the request body.
 
 > {"query": "query overload {__typename @include(if:true) @include(if:true) @include(if:true)}"}
