@@ -1,0 +1,34 @@
+#TODO: 
+# - automatically try GET & POST
+# - add way to cancel scan while it's running
+# - add more format options for queries - not all GraphQL will be JSON in the body
+# - add error to let user know if universal queries & introspection aren't enabled
+#   - if introspection enabled, check if description fields are available - potentially has sensitive info 
+# - test against graphql-armor
+# - threading?
+# - finish loadingCursor method
+# - add option to not verify SSL certificates
+# - add option to set timeout
+# - add option to set user-agent
+# - add way to handle redirects
+# - add logging to file option
+# - take advantage of rate limiting bypasses
+# - make overload tests more robust - handle syntax errors
+# - add switch to disabled plotting of overload performance data
+# - make features modular so users can pick & choose what to test for
+#
+# - FEATURES
+#   - proxy
+#   - fingerprint GraphQL engine
+#   - attempt through websocket if introspection/universal queries not enabled
+#   - attempt CSRF attacks
+#   - attempt cross-site websocket hijacking
+#   - rate limit bypassing using Aliases 
+#   - Incremental delivery abuse
+#   - Field suggestions abuse
+#   - GraphQL IDE enabled
+#   - unhandled errors
+#   - Persisted Query Abuse - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - Automatic query chaining based on schema - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - Authorization Bypass via Introspection - COPILOT GENEREATED THIS - IDK WHAT THIS IS
+#   - GraphQL Query Depth Analysis - COPILOT GENEREATED THIS - IDK WHAT THIS IS
